@@ -1,7 +1,5 @@
 package ru.bclib.api.dataexchange;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -15,6 +13,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.BCLib;
 import ru.bclib.api.dataexchange.handler.autosync.Chunker;
 import ru.bclib.api.dataexchange.handler.autosync.Chunker.PacketChunkSender;
@@ -53,7 +53,7 @@ public abstract class DataHandler extends BaseDataHandler {
 	abstract protected void runOnGameThread(Minecraft client, MinecraftServer server, boolean isClient);
 	
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	void receiveFromServer(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 		deserializeIncomingData(buf, responseSender, true);
@@ -106,7 +106,7 @@ public abstract class DataHandler extends BaseDataHandler {
 		}
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	void sendToServer(Minecraft client) {
 		if (prepareData(true)) {
@@ -141,16 +141,16 @@ public abstract class DataHandler extends BaseDataHandler {
 			super(identifier, false);
 		}
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		protected boolean prepareDataOnClient() { return true; }
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		abstract protected void serializeDataOnClient(FriendlyByteBuf buf);
 
 		protected abstract void deserializeIncomingDataOnServer(FriendlyByteBuf buf, Player player, PacketSender responseSender);
 		protected abstract void runOnServerGameThread(MinecraftServer server, Player player);
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		@Override
 		void receiveFromServer(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 			BCLib.LOGGER.error("[Internal Error] The message '" + getIdentifier() + "' must originate from the client!");
@@ -177,7 +177,7 @@ public abstract class DataHandler extends BaseDataHandler {
 			BCLib.LOGGER.error("[Internal Error] The message '" + getIdentifier() + "' must originate from the client!");
 		}
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		@Override
 		void sendToServer(Minecraft client) {
 			if (prepareDataOnClient()) {
@@ -217,14 +217,14 @@ public abstract class DataHandler extends BaseDataHandler {
 		
 		abstract protected void serializeDataOnServer(FriendlyByteBuf buf);
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		abstract protected void deserializeIncomingDataOnClient(FriendlyByteBuf buf, PacketSender responseSender);
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		abstract protected void runOnClientGameThread(Minecraft client);
 		
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		@Override
 		final void receiveFromServer(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 			deserializeIncomingDataOnClient(buf, responseSender);
@@ -264,7 +264,7 @@ public abstract class DataHandler extends BaseDataHandler {
 			}
 		}
 		
-		@Environment(EnvType.CLIENT)
+		@OnlyIn(Dist.CLIENT)
 		@Override
 		final void sendToServer(Minecraft client) {
 			BCLib.LOGGER.error("[Internal Error] The message '" + getIdentifier() + "' must originate from the server!");

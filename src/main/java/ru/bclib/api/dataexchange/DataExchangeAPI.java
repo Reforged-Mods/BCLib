@@ -1,9 +1,9 @@
 package ru.bclib.api.dataexchange;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.BCLib;
 import ru.bclib.api.dataexchange.handler.DataExchange;
 import ru.bclib.api.dataexchange.handler.autosync.AutoSync;
@@ -26,7 +26,7 @@ public class DataExchangeAPI extends DataExchange {
 		super();
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	protected ConnectorClientside clientSupplier(DataExchange api) {
 		return new ConnectorClientside(api);
 	}

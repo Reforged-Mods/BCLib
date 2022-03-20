@@ -1,7 +1,5 @@
 package ru.bclib.api.dataexchange.handler.autosync;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.loader.api.metadata.ModEnvironment;
 import net.minecraft.client.Minecraft;
@@ -9,6 +7,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.BCLib;
 import ru.bclib.api.dataexchange.DataExchangeAPI;
 import ru.bclib.api.dataexchange.DataHandler;
@@ -172,7 +172,7 @@ public class HelloClient extends DataHandler.FromServer {
 	List<SyncFolderDescriptor> autoSynFolders = null;
 	boolean serverPublishedModInfo = false;
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	protected void deserializeIncomingDataOnClient(FriendlyByteBuf buf, PacketSender responseSender) {
 		//read BCLibVersion (=protocol version)
@@ -214,7 +214,7 @@ public class HelloClient extends DataHandler.FromServer {
 		serverPublishedModInfo = buf.readBoolean();
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private void processAutoSyncFolder(final List<AutoSyncID> filesToRequest, final List<AutoSyncID.ForDirectFileRequest> filesToRemove) {
 		if (!Configs.CLIENT_CONFIG.isAcceptingFiles()) {
 			return;
@@ -280,7 +280,7 @@ public class HelloClient extends DataHandler.FromServer {
 		});
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private void processSingleFileSync(final List<AutoSyncID> filesToRequest) {
 		final boolean debugHashes = Configs.CLIENT_CONFIG.shouldPrintDebugHashes();
 		
@@ -320,7 +320,7 @@ public class HelloClient extends DataHandler.FromServer {
 	}
 
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private void processModFileSync(final List<AutoSyncID> filesToRequest, final Set<String> mismatchingMods) {
 		for (Entry<String, OfferedModInfo> e : modVersion.entrySet()) {
 			final String localVersion = ModUtil.convertModVersion(ModUtil.convertModVersion(ModUtil.getModVersion(e.getKey())));
@@ -348,7 +348,7 @@ public class HelloClient extends DataHandler.FromServer {
 		return true;
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	protected void runOnClientGameThread(Minecraft client) {
 		if (!Configs.CLIENT_CONFIG.isAllowingAutoSync()) {
@@ -385,7 +385,7 @@ public class HelloClient extends DataHandler.FromServer {
 		}
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	protected void showBCLibError(Minecraft client) {
 		BCLib.LOGGER.error("BCLib differs on client and server.");
 		client.setScreen(new WarnBCLibVersionMismatch((download) -> {
@@ -400,7 +400,7 @@ public class HelloClient extends DataHandler.FromServer {
 		}));
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	protected void showSyncFilesScreen(Minecraft client, List<AutoSyncID> files, final List<AutoSyncID.ForDirectFileRequest> filesToRemove) {
 		int configFiles = 0;
 		int singleFiles = 0;
@@ -453,7 +453,7 @@ public class HelloClient extends DataHandler.FromServer {
 		}));
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private void onCloseSyncFilesScreen(){
 		Minecraft.getInstance()
 				 .setScreen(ChunkerProgress.getProgressScreen());
@@ -477,7 +477,7 @@ public class HelloClient extends DataHandler.FromServer {
 		requestFileDownloads(List.of(new AutoSyncID.ForModFileRequest(BCLib.MOD_ID, bclibVersion)));
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private void requestFileDownloads(List<AutoSyncID> files) {
 		BCLib.LOGGER.info("Starting download of Files:" + files.size());
 

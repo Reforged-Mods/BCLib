@@ -1,13 +1,13 @@
 package ru.bclib.api;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.BCLib;
 import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.api.tag.NamedMineableTags;
@@ -70,12 +70,12 @@ public class PostInitAPI {
 		Configs.BIOMES_CONFIG.saveChanges();
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static void processBlockClient(Block block) {
 		if (block instanceof RenderLayerProvider) {
 			BCLRenderLayer layer = ((RenderLayerProvider) block).getRenderLayer();
-			if (layer == BCLRenderLayer.CUTOUT) BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout());
-			else if (layer == BCLRenderLayer.TRANSLUCENT) BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.translucent());
+			if (layer == BCLRenderLayer.CUTOUT) ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
+			else if (layer == BCLRenderLayer.TRANSLUCENT) ItemBlockRenderTypes.setRenderLayer(block, RenderType.translucent());
 		}
 		if (block instanceof BaseChestBlock) {
 			BaseChestBlockEntityRenderer.registerRenderLayer(block);

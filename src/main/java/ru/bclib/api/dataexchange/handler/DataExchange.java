@@ -1,10 +1,10 @@
 package ru.bclib.api.dataexchange.handler;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.api.dataexchange.BaseDataHandler;
 import ru.bclib.api.dataexchange.ConnectorClientside;
 import ru.bclib.api.dataexchange.ConnectorServerside;
@@ -48,7 +48,7 @@ abstract public class DataExchange {
 		return getInstance().descriptors.stream().filter(d -> d.equals(identifier)).findFirst().orElse(null);
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	protected void initClientside() {
 		if (client != null) return;
 		client = clientSupplier(this);
@@ -72,7 +72,7 @@ abstract public class DataExchange {
 	 * <p>
 	 * This is automatically called by BCLib. You can register {@link DataHandler}-Objects before this Method is called
 	 */
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void prepareClientside() {
 		DataExchange api = DataExchange.getInstance();
 		api.initClientside();
@@ -96,7 +96,7 @@ abstract public class DataExchange {
 	 * This is automatically called by BCLib. It will send all {@link DataHandler}-Objects that have {@link DataHandlerDescriptor#sendBeforeEnter} set to*
 	 * {@code true},
 	 */
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void sendOnEnter() {
 		getInstance().descriptors.forEach((desc) -> {
 			if (desc.sendBeforeEnter) {

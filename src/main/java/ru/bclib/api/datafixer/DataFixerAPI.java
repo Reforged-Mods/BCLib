@@ -1,7 +1,5 @@
 package ru.bclib.api.datafixer;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
@@ -19,6 +17,8 @@ import net.minecraft.world.level.chunk.storage.RegionFile;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.LevelStorageSource.LevelStorageAccess;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import ru.bclib.BCLib;
 import ru.bclib.api.WorldDataAPI;
@@ -177,7 +177,7 @@ public class DataFixerAPI {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static AtomicProgressListener showProgressScreen(){
 		ProgressScreen ps = new ProgressScreen(Minecraft.getInstance().screen, new TranslatableComponent("title.bclib.datafixer.progress"), new TranslatableComponent("message.bclib.datafixer.progress"));
 		Minecraft.getInstance().setScreen(ps);
@@ -281,7 +281,7 @@ public class DataFixerAPI {
 		}
 		return false;
 	}
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static void showLevelFixErrorScreen(State state, Listener onContinue){
 		Minecraft.getInstance().setScreen(new LevelFixErrorScreen(Minecraft.getInstance().screen, state.getErrorMessages(), onContinue));
 	}
@@ -310,7 +310,7 @@ public class DataFixerAPI {
 		return profile;
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	static void showBackupWarning(String levelID, BiConsumer<Boolean, Boolean> whenFinished){
 		Minecraft.getInstance().setScreen(new ConfirmFixScreen((Screen) null, whenFinished::accept));
 	}

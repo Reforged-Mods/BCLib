@@ -1,14 +1,14 @@
 package ru.bclib.api;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraftforge.fml.ModList;
 import ru.bclib.integration.ModIntegration;
 
 import java.util.List;
 
 public class ModIntegrationAPI {
 	private static final List<ModIntegration> INTEGRATIONS = Lists.newArrayList();
-	private static final boolean HAS_CANVAS = FabricLoader.getInstance().isModLoaded("canvas");
+	private static final boolean HAS_CANVAS = ModList.get().isLoaded("canvas");
 	
 	/**
 	 * Registers mod integration

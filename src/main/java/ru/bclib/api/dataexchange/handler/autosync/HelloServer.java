@@ -1,12 +1,12 @@
 package ru.bclib.api.dataexchange.handler.autosync;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.BCLib;
 import ru.bclib.api.dataexchange.DataExchangeAPI;
 import ru.bclib.api.dataexchange.DataHandler;
@@ -66,7 +66,7 @@ public class HelloServer extends DataHandler.FromClient {
 		super(DESCRIPTOR.IDENTIFIER);
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	protected boolean prepareDataOnClient() {
 		if (! Configs.CLIENT_CONFIG.isAllowingAutoSync()) {
@@ -77,7 +77,7 @@ public class HelloServer extends DataHandler.FromClient {
 		return true;
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	protected void serializeDataOnClient(FriendlyByteBuf buf) {
 		BCLib.LOGGER.info("Sending hello to server.");

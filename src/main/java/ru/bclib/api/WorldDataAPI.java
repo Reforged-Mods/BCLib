@@ -2,11 +2,11 @@ package ru.bclib.api;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.world.level.storage.LevelStorageSource.LevelStorageAccess;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
 import ru.bclib.BCLib;
 import ru.bclib.api.datafixer.DataFixerAPI;
 import ru.bclib.util.ModUtil;
@@ -47,15 +47,14 @@ public class WorldDataAPI {
 					TAGS.put(modID, root);
 				}
 				else {
-					Optional<ModContainer> optional = FabricLoader.getInstance()
-																  .getModContainer(modID);
+					Optional<? extends ModContainer> optional = ModList.get().getModContainerById(modID);
 					if (optional.isPresent()) {
 						ModContainer modContainer = optional.get();
 						if (BCLib.isDevEnvironment()) {
 							root.putString("version", "255.255.9999");
 						}
 						else {
-							root.putString("version", modContainer.getMetadata()
+							root.putString("version", modContainer.getModInfo()
 																  .getVersion()
 																  .toString());
 						}
