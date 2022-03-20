@@ -36,8 +36,12 @@ public class BCLStructureFeature {
 	public final TagKey<Biome> biomeTag;
 	public final ResourceKey<ConfiguredStructureFeature<?, ?>> structureKey;
 	public final ResourceKey<StructureSet> structureSetKey;
+	public final RandomSpreadStructurePlacement spreadConfig;
 
 	public BCLStructureFeature(ResourceLocation id, StructureFeature<NoneFeatureConfiguration> structure, GenerationStep.Decoration step, int spacing, int separation) {
+		this(id, structure, step, spacing, separation, false);
+	}
+	public BCLStructureFeature(ResourceLocation id, StructureFeature<NoneFeatureConfiguration> structure, GenerationStep.Decoration step, int spacing, int separation, boolean adaptNoise) {
 		this.id = id;
 		this.featureStep = step;
 		//parts from vanilla for Structure generation
@@ -51,16 +55,14 @@ public class BCLStructureFeature {
 		//      StructureFeature.register("jungle_pyramid", new JunglePyramidFeature(NoneFeatureConfiguration.CODEC), GenerationStep.Decoration.SURFACE_STRUCTURES);
 		//
 
-		final RandomSpreadStructurePlacement spreadConfig = new RandomSpreadStructurePlacement(spacing, separation, RandomSpreadType.LINEAR, RANDOM.nextInt(8192));
+		this.spreadConfig = new RandomSpreadStructurePlacement(spacing, separation, RandomSpreadType.LINEAR, RANDOM.nextInt(8192));
 		this.structureKey = ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, id);
 		this.structureSetKey = ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, id);
 
 		this.biomeTag = TagAPI.makeBiomeTag(id.getNamespace(), "has_structure/"+id.getPath());
 		this.structure = StructureFeatureAccessor.callRegister(id.toString(), structure, step);
-		this.featureConfigured = StructureFeaturesAccessor.callRegister(structureKey, this.structure.configured(NoneFeatureConfiguration.NONE, biomeTag));
+		this.featureConfigured = StructureFeaturesAccessor.callRegister(structureKey, this.structure.configured(NoneFeatureConfiguration.NONE, biomeTag, adaptNoise));
 		StructureSets.register(structureSetKey, featureConfigured, spreadConfig);
-		//TODO: 1.18 check if structures are added correctly
-		//FlatChunkGeneratorConfigAccessor.getStructureToFeatures().put(this.structure, this.featureConfigured);
 	}
 
 	/**

@@ -3,6 +3,7 @@ package ru.bclib.api.tag;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.Tag;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import ru.bclib.api.biomes.BiomeAPI;
 import ru.bclib.mixin.common.DiggerItemAccessor;
 
 import java.util.Map;
@@ -23,6 +25,7 @@ import java.util.function.BiConsumer;
 public class TagAPI {
 	private static final Map<ResourceLocation, Set<ResourceLocation>> TAGS_BLOCK = Maps.newConcurrentMap();
 	private static final Map<ResourceLocation, Set<ResourceLocation>> TAGS_ITEM = Maps.newConcurrentMap();
+	private static final Map<ResourceLocation, Set<ResourceLocation>> TAGS_BIOME = Maps.newConcurrentMap();
 	
 	/**
 	 * Get or create {@link TagKey}.
@@ -32,7 +35,6 @@ public class TagAPI {
 	 * @return {@link TagKey}.
 	 */
 	public static <T> TagKey<T> makeTag(Registry<T> registry, TagLocation<T> id) {
-		//TODO: 1.18.2 check if registry.key() gets the correct result
 		return registry
 				.getTagNames()
 				.filter(tagKey -> tagKey.location().equals(id))
@@ -62,6 +64,16 @@ public class TagAPI {
 	public static TagKey<Block> makeBlockTag(String modID, String name) {
 		return makeTag(Registry.BLOCK, new TagLocation<>(modID, name));
 	}
+
+	/**
+	 * Get or create {@link Block} {@link TagKey} with mod namespace.
+	 *
+	 * @param id - {@link String} id for the tag;
+	 * @return {@link Block} {@link TagKey}.
+	 */
+	public static TagKey<Block> makeBlockTag(ResourceLocation id) {
+		return makeTag(Registry.BLOCK, new TagLocation<>(id));
+	}
 	
 	/**
 	 * Get or create {@link Item} {@link TagKey} with mod namespace.
@@ -72,6 +84,16 @@ public class TagAPI {
 	 */
 	public static TagKey<Item> makeItemTag(String modID, String name) {
 		return makeTag(Registry.ITEM, new TagLocation<>(modID, name));
+	}
+
+	/**
+	 * Get or create {@link Item} {@link TagKey} with mod namespace.
+	 *
+	 * @param id - {@link String} id for the tag;
+	 * @return {@link Item} {@link TagKey}.
+	 */
+	public static TagKey<Item> makeItemTag(ResourceLocation id) {
+		return makeTag(Registry.ITEM, new TagLocation<>(id));
 	}
 	
 	/**
@@ -106,7 +128,52 @@ public class TagAPI {
 		addItemTag(CommonItemTags.IRON_INGOTS, Items.IRON_INGOT);
 		addItemTag(CommonItemTags.FURNACES, Blocks.FURNACE);
 	}
-	
+
+	/**
+	 * Adds multiple Tags to one Biome.
+	 * @param tagIDs array of {@link TagLocation<Biome>} tag IDs.
+	 * @param biome The {@link Biome} to add tag.
+	 */
+	@SafeVarargs
+	public static void addBiomeTags(Biome biome, TagLocation<Biome>... tagIDs) {
+		for (TagLocation<Biome> tagID : tagIDs) {
+			addBiomeTagUntyped(tagID, biome);
+		}
+	}
+
+	/**
+	 * Adds one Tag to multiple Biomes.
+	 * @param tagID {@link TagLocation<Biome>} tag ID.
+	 * @param biomes array of {@link Biome} to add into tag.
+	 */
+	public static void addBiomeTag(TagLocation<Biome> tagID, Biome... biomes) {
+		addBiomeTagUntyped(tagID, biomes);
+	}
+
+	/**
+	 * Adds one Tag to multiple Biomes.
+	 * @param tagID {@link TagKey<Biome>} tag ID.
+	 * @param biomes array of {@link Biome} to add into tag.
+	 */
+	public static void addBiomeTag(TagKey<Biome> tagID, Biome... biomes) {
+		addBiomeTagUntyped(tagID.location(), biomes);
+	}
+	/**
+	 * Adds one Tag to multiple Biomes.
+	 * @param tagID {@link ResourceLocation} tag ID.
+	 * @param biomes array of {@link Biome} to add into tag.
+	 */
+	protected static void addBiomeTagUntyped(ResourceLocation tagID, Biome... biomes) {
+		Set<ResourceLocation> set = TAGS_BIOME.computeIfAbsent(tagID, k -> Sets.newHashSet());
+		for (Biome biome : biomes) {
+			ResourceLocation id = BiomeAPI.getBiomeID(biome);
+			if (id != null) {
+				set.add(id);
+			}
+		}
+	}
+
+
 	/**
 	 * Adds multiple Tags to one Block.
 	 * @param tagIDs array of {@link TagLocation<Block>} tag IDs.
@@ -215,6 +282,9 @@ public class TagAPI {
 		}
 		else if ("tags/items".equals(directory)) {
 			TAGS_ITEM.forEach(consumer);
+		}
+		else if ("tags/worldgen/biome".equals(directory)) {
+			TAGS_BIOME.forEach(consumer);
 		}
 		return tagsMap;
 	}
