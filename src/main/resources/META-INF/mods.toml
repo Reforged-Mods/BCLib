@@ -1,0 +1,25 @@
+modLoader="javafml"
+license="MIT"
+loaderVersion="[40,)"
+issueTrackerURL="https://github.com/Reforged-Mods/BCLib/issues"
+
+[[mods]]
+modId="bclib"
+version="${version}"
+displayName="BC Lib"
+displayURL="https://github.com/Reforged-Mods/BCLib"
+credits="paulevsGlich for making original BCLib."
+authors="Trinsdar"
+description='''BC Lib ported to forge.'''
+[[dependencies.bclib]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40.0.0,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.bclib]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,)"
+    ordering="AFTER"
+    side="BOTH"

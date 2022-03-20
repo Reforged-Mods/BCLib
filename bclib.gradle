@@ -1,14 +1,4 @@
-buildscript {
-	dependencies {
-		classpath 'org.kohsuke:github-api:1.114'
-	}
-
-	repositories {
-		gradlePluginPortal()
-	}
-}
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -16,32 +6,30 @@ group = project.maven_group
 
 repositories {
 	maven { url "https://maven.dblsaiko.net/" }
-	maven { url "https://maven.fabricmc.net/" }	
+	maven { url "https://maven.fabricmc.net/" }
 	maven { url "https://maven.shedaniel.me/" }
-	maven { url 'https://maven.blamejared.com' } 
+	maven { url 'https://maven.blamejared.com' }
 	maven { url 'https://jitpack.io' }
     maven { url 'https://maven.terraformersmc.com/releases' }
 }
 
 loom {
-	accessWidenerPath = file("src/main/resources/bclib.accesswidener")
+	//accessWidenerPath = file("src/main/resources/bclib.accesswidener")
 }
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
-	
+	forge "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+	modImplementation ("com.github.Reforged-Mods:FabricBiomeApiReforged:2.0.0")
 	//useApi "vazkii.patchouli:Patchouli:1.16.4-${project.patchouli_version}"
 }
 
 processResources {
 	println "Version: ${project.mod_version}"
 	inputs.property "version", project.mod_version
-	
-	filesMatching("fabric.mod.json") {
+
+	filesMatching("META-INF/mods.toml") {
 		expand "version": project.mod_version
 	}
 }
@@ -51,7 +39,6 @@ processResources {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
-	it.options.release = 17
 }
 
 javadoc {
@@ -83,29 +70,6 @@ artifacts {
 
 def env = System.getenv()
 
-import org.kohsuke.github.GHReleaseBuilder
-import org.kohsuke.github.GitHub
-
-task release(dependsOn: [remapJar, sourcesJar, javadocJar]) {
-	onlyIf {
-		env.GITHUB_TOKEN
-	}
-
-	doLast {
-		def github = GitHub.connectUsingOAuth(env.GITHUB_TOKEN as String)
-		def repository = github.getRepository("paulevsGitch/BCLib")
-
-		def releaseBuilder = new GHReleaseBuilder(repository, version as String)
-		releaseBuilder.name("${archivesBaseName}-${version}")
-		releaseBuilder.body("A changelog can be found at https://github.com/paulevsGitch/BCLib/commits")
-		releaseBuilder.commitish("main")
-
-		def ghRelease = releaseBuilder.create()
-		ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
-		ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}-sources.jar"), "application/java-archive");
-		ghRelease.uploadAsset(file("${project.buildDir}/libs/${archivesBaseName}-${version}-javadoc.jar"), "application/java-archive");
-	}
-}
 
 // configure the maven publication
 publishing {
