@@ -2,8 +2,6 @@ package ru.bclib.client.models;
 
 import com.google.common.collect.Lists;
 import com.mojang.math.Transformation;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.MultiVariant;
 import net.minecraft.client.renderer.block.model.Variant;
@@ -16,12 +14,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelsHelper {
 	public static BlockModel fromPattern(Optional<String> pattern) {
 		return pattern.map(BlockModel::fromString).orElse(null);

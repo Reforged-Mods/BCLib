@@ -1,9 +1,6 @@
 package ru.bclib.blocks;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
@@ -32,6 +29,8 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.api.tag.NamedMineableTags;
 import ru.bclib.api.tag.TagAPI;
@@ -126,13 +125,13 @@ public class BaseTerrainBlock extends BaseBlock {
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getItemModel(ResourceLocation blockId) {
 		return getBlockModel(blockId, defaultBlockState());
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
 		ResourceLocation baseId = Registry.BLOCK.getKey(getBaseBlock());
 		String modId = blockId.getNamespace();
@@ -147,7 +146,7 @@ public class BaseTerrainBlock extends BaseBlock {
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
 		ResourceLocation modelId = new ResourceLocation(stateId.getNamespace(), "block/" + stateId.getPath());
 		registerBlockModel(stateId, modelId, blockState, modelCache);

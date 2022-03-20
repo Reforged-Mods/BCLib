@@ -11,8 +11,6 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
@@ -29,13 +27,15 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ServerboundSignUpdatePacket;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.blockentities.BaseSignBlockEntity;
 import ru.bclib.blocks.BaseSignBlock;
 import ru.bclib.client.render.BaseSignBlockEntityRenderer;
 
 import java.util.Arrays;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class BlockSignEditScreen extends Screen {
 	private final BaseSignBlockEntity sign;
 	private int ticksSinceOpened;

@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Vector3f;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -21,6 +19,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.util.BlocksHelper;
 import ru.bclib.util.MHelper;
@@ -38,7 +38,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class OBJBlockModel implements UnbakedModel, BakedModel {
 	private static final Vector3f[] POSITIONS = new Vector3f[] { new Vector3f(), new Vector3f(), new Vector3f() };
 	

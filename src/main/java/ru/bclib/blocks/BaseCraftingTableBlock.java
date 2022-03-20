@@ -1,7 +1,5 @@
 package ru.bclib.blocks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +9,8 @@ import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
@@ -38,13 +38,13 @@ public class BaseCraftingTableBlock extends CraftingTableBlock implements BlockM
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getItemModel(ResourceLocation resourceLocation) {
 		return getBlockModel(resourceLocation, defaultBlockState());
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
 		String blockName = blockId.getPath();
 		Optional<String> pattern = PatternsHelper.createJson(BasePatterns.BLOCK_SIDED, new HashMap<String, String>() {

@@ -1,14 +1,16 @@
 package ru.bclib.gui.gridlayout;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.interfaces.TriConsumer;
 
 import java.util.List;
 import java.util.function.Function;
 
-@Environment(EnvType.CLIENT)
+;
+
+@OnlyIn(Dist.CLIENT)
 class GridCell extends GridCellDefinition {
 	public final float height;
 	Function<GridTransform, Object> componentPlacer;

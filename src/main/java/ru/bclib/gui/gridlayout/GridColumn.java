@@ -1,13 +1,13 @@
 package ru.bclib.gui.gridlayout;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 import ru.bclib.gui.gridlayout.GridLayout.VerticalAlignment;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridColumn extends GridContainer {
 	GridColumn(double width) {
 		super(width);

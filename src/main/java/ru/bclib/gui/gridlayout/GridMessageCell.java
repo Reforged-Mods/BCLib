@@ -1,16 +1,16 @@
 package ru.bclib.gui.gridlayout;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.MultiLineLabel;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.Alignment;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridMessageCell extends GridCell {
 	private final Font font;
 	private Component text;

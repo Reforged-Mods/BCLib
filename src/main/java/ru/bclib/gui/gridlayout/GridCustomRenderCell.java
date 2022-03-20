@@ -1,12 +1,12 @@
 package ru.bclib.gui.gridlayout;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public abstract class GridCustomRenderCell extends GridCell{
 	protected GridCustomRenderCell(double width, GridValueType widthType, double height) {
 		super(width, height, widthType, null, null);

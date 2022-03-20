@@ -1,16 +1,16 @@
 package ru.bclib.gui.screens;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridColumn;
 import ru.bclib.gui.gridlayout.GridLayout;
 import ru.bclib.gui.gridlayout.GridRow;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class LevelFixErrorScreen  extends BCLibScreen {
 	private final String[] errors;
 	final Listener onContinue;
@@ -53,7 +53,7 @@ public class LevelFixErrorScreen  extends BCLibScreen {
 		row.addFiller();
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public interface Listener {
 		void doContinue(boolean markFixed);
 	}

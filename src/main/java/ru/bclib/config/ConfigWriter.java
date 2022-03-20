@@ -2,14 +2,13 @@ package ru.bclib.config;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.fabricmc.loader.api.FabricLoader;
 import ru.bclib.util.JsonFactory;
 
 import java.io.File;
 import java.nio.file.Path;
 
 public class ConfigWriter {
-	private final static Path GAME_CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
+	private final static Path GAME_CONFIG_DIR = Path.of(".").resolve("config");
 	
 	private final File configFile;
 	private JsonObject configObject;

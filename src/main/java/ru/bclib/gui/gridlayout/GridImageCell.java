@@ -2,14 +2,14 @@ package ru.bclib.gui.gridlayout;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridImageCell extends GridCell{
 	GridImageCell(ResourceLocation location, double width, GridValueType widthType, double height, float alpha, int uvLeft, int uvTop, int uvWidth, int uvHeight, int resourceWidth, int resourceHeight) {
 		super(width, height, widthType, null, (poseStack, transform, context) -> {

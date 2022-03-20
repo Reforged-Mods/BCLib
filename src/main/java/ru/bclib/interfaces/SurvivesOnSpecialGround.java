@@ -1,8 +1,6 @@
 package ru.bclib.interfaces;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -10,13 +8,15 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
 public interface SurvivesOnSpecialGround {
     String getSurvivableBlocksString();
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static List<String>  splitLines(String input) {
         final int MAX_LEN = 45;
         List<String> lines = Lists.newArrayList();
@@ -35,7 +35,7 @@ public interface SurvivesOnSpecialGround {
         return lines;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static void appendHoverText(List<Component> list, String description) {
         final int MAX_LINES = 7;
         List<String>  lines = splitLines(description);

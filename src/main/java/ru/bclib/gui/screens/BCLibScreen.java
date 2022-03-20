@@ -1,10 +1,10 @@
 package ru.bclib.gui.screens;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.BCLib;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
@@ -12,7 +12,7 @@ import ru.bclib.gui.gridlayout.GridLayout.VerticalAlignment;
 import ru.bclib.gui.gridlayout.GridRow;
 import ru.bclib.gui.gridlayout.GridScreen;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 abstract class BCLibScreen extends GridScreen {
 	static final ResourceLocation BCLIB_LOGO_LOCATION = new ResourceLocation(BCLib.MOD_ID, "icon.png");
 	

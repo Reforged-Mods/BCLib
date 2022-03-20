@@ -2,13 +2,13 @@ package ru.bclib.client.models;
 
 import com.google.common.collect.Lists;
 import com.mojang.math.Vector3f;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class OBJModelBuilder {
 	private static final OBJModelBuilder INSTANCE = new OBJModelBuilder();
 	private final List<ResourceLocation> textures = Lists.newArrayList();

@@ -1,14 +1,14 @@
 package ru.bclib.gui.screens;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.Alignment;
 import ru.bclib.gui.gridlayout.GridRow;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class WarnBCLibVersionMismatch extends BCLibScreen {
 	private final Component description;
 	private final Listener listener;
@@ -40,7 +40,7 @@ public class WarnBCLibVersionMismatch extends BCLibScreen {
 		return false;
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public interface Listener {
 		void proceed(boolean download);
 	}

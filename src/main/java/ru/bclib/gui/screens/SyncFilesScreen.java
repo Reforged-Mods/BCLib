@@ -1,18 +1,18 @@
 package ru.bclib.gui.screens;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.api.dataexchange.handler.autosync.HelloClient;
 import ru.bclib.gui.gridlayout.GridCheckboxCell;
 import ru.bclib.gui.gridlayout.GridLayout.Alignment;
 import ru.bclib.gui.gridlayout.GridRow;
 import ru.bclib.util.ModUtil;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class SyncFilesScreen extends BCLibScreen {
 	private final Component description;
 	private final SyncFilesScreen.Listener listener;
@@ -106,7 +106,7 @@ public class SyncFilesScreen extends BCLibScreen {
 		return false;
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public interface Listener {
 		void proceed(boolean downloadMods, boolean downloadConfigs, boolean downloadFiles, boolean removeFiles);
 	}

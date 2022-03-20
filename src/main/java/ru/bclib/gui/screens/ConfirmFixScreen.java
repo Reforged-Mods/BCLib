@@ -1,18 +1,18 @@
 package ru.bclib.gui.screens;
 
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.gui.gridlayout.GridCheckboxCell;
 import ru.bclib.gui.gridlayout.GridLayout.Alignment;
 import ru.bclib.gui.gridlayout.GridRow;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ConfirmFixScreen extends BCLibScreen {
 	protected final ConfirmFixScreen.Listener listener;
 	private final Component description;
@@ -57,7 +57,7 @@ public class ConfirmFixScreen extends BCLibScreen {
 		return true;
 	}
 	
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public interface Listener {
 		void proceed(boolean createBackup, boolean applyPatches);
 	}

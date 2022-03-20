@@ -6,8 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -27,12 +25,14 @@ import net.minecraft.world.level.block.DoubleBlockCombiner.NeighborCombineResult
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.blockentities.BaseChestBlockEntity;
 import ru.bclib.client.models.BaseChestBlockModel;
 
 import java.util.HashMap;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class BaseChestBlockEntityRenderer implements BlockEntityRenderer<BaseChestBlockEntity> {
 	private static final HashMap<Block, RenderType[]> LAYERS = Maps.newHashMap();
 	private static final RenderType[] RENDER_TYPES;

@@ -1,7 +1,5 @@
 package ru.bclib.blocks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.client.resources.model.UnbakedModel;
@@ -13,6 +11,8 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
@@ -39,7 +39,7 @@ public abstract class BaseButtonBlock extends ButtonBlock implements BlockModelP
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getItemModel(ResourceLocation blockId) {
 		ResourceLocation parentId = Registry.BLOCK.getKey(parent);
 		Optional<String> pattern = PatternsHelper.createJson(BasePatterns.ITEM_BUTTON, parentId);
@@ -47,7 +47,7 @@ public abstract class BaseButtonBlock extends ButtonBlock implements BlockModelP
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public @Nullable BlockModel getBlockModel(ResourceLocation resourceLocation, BlockState blockState) {
 		ResourceLocation parentId = Registry.BLOCK.getKey(parent);
 		Optional<String> pattern = blockState.getValue(POWERED) ? PatternsHelper.createJson(
@@ -58,7 +58,7 @@ public abstract class BaseButtonBlock extends ButtonBlock implements BlockModelP
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
 		String powered = blockState.getValue(POWERED) ? "_powered" : "";
 		ResourceLocation modelId = new ResourceLocation(stateId.getNamespace(), "block/" + stateId.getPath() + powered);

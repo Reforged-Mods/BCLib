@@ -1,14 +1,14 @@
 package ru.bclib.gui.gridlayout;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 
 import java.util.function.Consumer;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 class SignalingCheckBox extends Checkbox{
 	private Consumer<Boolean> onChange;
 	public SignalingCheckBox(int left, int top, int width, int height, Component component, boolean checked, Consumer<Boolean> onChange) {
@@ -26,7 +26,7 @@ class SignalingCheckBox extends Checkbox{
 	}
 }
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridCheckboxCell extends GridCell implements GridWidgetWithEnabledState{
 	private boolean checked;
 	private Checkbox lastCheckbox;

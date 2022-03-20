@@ -1,7 +1,5 @@
 package ru.bclib.blocks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.block.model.BlockModel;
@@ -39,6 +37,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.blockentities.BaseSignBlockEntity;
 import ru.bclib.client.models.ModelsHelper;
@@ -155,7 +155,7 @@ public class BaseSignBlock extends SignBlock implements BlockModelProvider, Cust
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public @Nullable BlockModel getBlockModel(ResourceLocation resourceLocation, BlockState blockState) {
 		ResourceLocation parentId = Registry.BLOCK.getKey(parent);
 		return ModelsHelper.createBlockEmpty(parentId);

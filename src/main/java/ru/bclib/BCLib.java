@@ -1,9 +1,9 @@
 package ru.bclib;
 
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import ru.bclib.api.WorldDataAPI;
 import ru.bclib.api.dataexchange.DataExchangeAPI;
 import ru.bclib.api.dataexchange.handler.autosync.Chunker;
@@ -52,11 +52,11 @@ public class BCLib implements ModInitializer {
 	}
 	
 	public static boolean isDevEnvironment() {
-		return FabricLoader.getInstance().isDevelopmentEnvironment();
+		return !FMLEnvironment.production;
 	}
 	
 	public static boolean isClient() {
-		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+		return FMLEnvironment.dist == Dist.CLIENT;
 	}
 	
 	public static ResourceLocation makeID(String path) {

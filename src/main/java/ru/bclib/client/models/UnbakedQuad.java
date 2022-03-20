@@ -3,14 +3,14 @@ package ru.bclib.client.models;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class UnbakedQuad {
 	private static final Vector4f POS = new Vector4f();
 	private float[] data = new float[20]; // 4 points with 3 positions and 2 uvs, 4 * (3 + 2)

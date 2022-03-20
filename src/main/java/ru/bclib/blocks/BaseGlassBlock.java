@@ -1,7 +1,5 @@
 package ru.bclib.blocks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,6 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.RenderLayerProvider;
 import ru.bclib.interfaces.tools.AddMineablePickaxe;
@@ -32,7 +32,7 @@ public class BaseGlassBlock extends BaseBlockNotFull implements AddMineablePicka
                 .isViewBlocking((arg1, arg2, arg3) -> false));
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public float getShadeBrightness(BlockState state, BlockGetter view, BlockPos pos) {
         return 1.0F;
     }
@@ -42,7 +42,7 @@ public class BaseGlassBlock extends BaseBlockNotFull implements AddMineablePicka
         return true;
     }
 
-    @Environment(EnvType.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public boolean skipRendering(BlockState state, BlockState neighbor, Direction facing) {
         return neighbor.getBlock() == this ? true : super.skipRendering(state, neighbor, facing);
     }

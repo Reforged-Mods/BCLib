@@ -1,9 +1,9 @@
 package ru.bclib.gui.gridlayout;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 import ru.bclib.interfaces.TriConsumer;
 import ru.bclib.util.Pair;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Function;
 
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 abstract class GridCellDefinition {
 	public final float width;
 	public final GridLayout.GridValueType widthType;
@@ -47,7 +47,7 @@ abstract class GridCellDefinition {
 	abstract protected GridElement buildElementAt(int left, int top, int width, final List<GridElement> collector);
 }
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 class GridElement extends GridTransform{
 	final Function<GridTransform, Object> componentPlacer;
 	final TriConsumer<PoseStack, GridTransform, Object> customRender;
@@ -68,7 +68,7 @@ class GridElement extends GridTransform{
 	}
 }
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 abstract class GridContainer extends GridCellDefinition{
 	protected List<GridCellDefinition> cells;
 	
@@ -82,7 +82,7 @@ abstract class GridContainer extends GridCellDefinition{
 	}
 }
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridLayout extends GridColumn {
 	public static final int COLOR_WHITE = 0xFFFFFFFF;
 	public static final int COLOR_RED = 0xFFDB1F48;

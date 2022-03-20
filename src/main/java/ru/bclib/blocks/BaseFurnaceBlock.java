@@ -2,8 +2,6 @@ package ru.bclib.blocks;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.UnbakedModel;
@@ -24,6 +22,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.blockentities.BaseFurnaceBlockEntity;
 import ru.bclib.client.models.BasePatterns;
@@ -62,7 +62,7 @@ public class BaseFurnaceBlock extends FurnaceBlock implements BlockModelProvider
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public @Nullable BlockModel getBlockModel(ResourceLocation blockId, BlockState blockState) {
 		String blockName = blockId.getPath();
 		Map<String, String> textures = Maps.newHashMap();
@@ -83,13 +83,13 @@ public class BaseFurnaceBlock extends FurnaceBlock implements BlockModelProvider
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getItemModel(ResourceLocation resourceLocation) {
 		return getBlockModel(resourceLocation, defaultBlockState());
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public UnbakedModel getModelVariant(ResourceLocation stateId, BlockState blockState, Map<ResourceLocation, UnbakedModel> modelCache) {
 		String lit = blockState.getValue(LIT) ? "_lit" : "";
 		ResourceLocation modelId = new ResourceLocation(stateId.getNamespace(), "block/" + stateId.getPath() + lit);

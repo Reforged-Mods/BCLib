@@ -1,7 +1,5 @@
 package ru.bclib.items;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -15,6 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import ru.bclib.blocks.BaseAnvilBlock;
 import ru.bclib.interfaces.BlockModelProvider;
@@ -51,7 +51,7 @@ public class BaseAnvilItem extends BlockItem implements ItemModelProvider {
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
 		int destruction = itemStack.getOrCreateTag().getInt(DESTRUCTION);
 		if (destruction > 0) {
@@ -64,7 +64,7 @@ public class BaseAnvilItem extends BlockItem implements ItemModelProvider {
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getItemModel(ResourceLocation resourceLocation) {
 		Block anvilBlock = getBlock();
 		ResourceLocation blockId = Registry.BLOCK.getKey(anvilBlock);

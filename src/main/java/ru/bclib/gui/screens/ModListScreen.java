@@ -1,12 +1,12 @@
 package ru.bclib.gui.screens;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.metadata.ModEnvironment;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.api.dataexchange.handler.autosync.HelloClient;
 import ru.bclib.gui.gridlayout.GridColumn;
 import ru.bclib.gui.gridlayout.GridLayout;
@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModListScreen extends BCLibScreen {
 
 	private final List<ModUtil.ModInfo> mods;

@@ -1,12 +1,12 @@
 package ru.bclib.gui.gridlayout;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.Alignment;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridStringCell extends GridCell {
 	private Component text;
 	GridStringCell(double width, GridValueType widthType, int height, Alignment contentAlignment, GridScreen parent, Component text) {

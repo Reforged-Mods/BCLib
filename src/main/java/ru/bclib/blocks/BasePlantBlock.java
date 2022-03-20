@@ -1,8 +1,6 @@
 package ru.bclib.blocks;
 
 import com.google.common.collect.Lists;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.BlockPos;
@@ -10,7 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -30,17 +27,14 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
-import ru.bclib.api.tag.NamedMineableTags;
-import ru.bclib.api.tag.TagAPI.TagLocation;
 import ru.bclib.client.models.BasePatterns;
 import ru.bclib.client.models.ModelsHelper;
 import ru.bclib.client.models.PatternsHelper;
 import ru.bclib.client.render.BCLRenderLayer;
 import ru.bclib.interfaces.RenderLayerProvider;
-import ru.bclib.interfaces.TagProvider;
-import ru.bclib.interfaces.tools.AddMineableHoe;
-import ru.bclib.interfaces.tools.AddMineableShears;
 import ru.bclib.items.tool.BaseShearsItem;
 
 import java.util.List;
@@ -156,14 +150,14 @@ public abstract class BasePlantBlock extends BaseBlockNotFull implements RenderL
 	}
 	
 	@Override
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getItemModel(ResourceLocation resourceLocation) {
 		return ModelsHelper.createBlockItem(resourceLocation);
 	}
 	
 	@Override
 	@Nullable
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockModel getBlockModel(ResourceLocation resourceLocation, BlockState blockState) {
 		Optional<String> pattern = PatternsHelper.createJson(BasePatterns.BLOCK_CROSS, resourceLocation);
 		return ModelsHelper.fromPattern(pattern);

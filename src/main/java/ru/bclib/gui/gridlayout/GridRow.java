@@ -1,12 +1,12 @@
 package ru.bclib.gui.gridlayout;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Button.OnPress;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.gui.gridlayout.GridLayout.Alignment;
 import ru.bclib.gui.gridlayout.GridLayout.GridValueType;
 import ru.bclib.gui.gridlayout.GridLayout.VerticalAlignment;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-@Environment(EnvType.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class GridRow extends GridContainer {
 	public final GridLayout.VerticalAlignment alignment;
 	

@@ -1,7 +1,7 @@
 package ru.bclib.config;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import ru.bclib.BCLib;
 import ru.bclib.config.ConfigKeeper.StringArrayEntry;
 
@@ -10,7 +10,7 @@ import java.util.Collections;
 public class Configs {
 	// Client and Server-Config must be the first entries. They are not part of the Auto-Sync process
 	// But will be needed by other Auto-Sync Config-Files
-	@Environment(EnvType.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static final ClientConfig CLIENT_CONFIG = new ClientConfig();
 	public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 	
