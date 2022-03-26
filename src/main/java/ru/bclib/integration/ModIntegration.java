@@ -1,6 +1,5 @@
 package ru.bclib.integration;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraftforge.fml.ModList;
 import ru.bclib.BCLib;
 import ru.bclib.api.tag.TagAPI;
 import ru.bclib.world.features.BCLFeature;
@@ -58,7 +58,7 @@ public abstract class ModIntegration {
 	}
 	
 	public boolean modIsInstalled() {
-		return FabricLoader.getInstance().isModLoaded(modID);
+		return ModList.get().isLoaded(modID);
 	}
 	
 	public BCLFeature getFeature(String featureID, String placedFeatureID, GenerationStep.Decoration featureStep) {

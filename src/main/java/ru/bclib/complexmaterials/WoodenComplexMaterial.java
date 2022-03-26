@@ -1,13 +1,12 @@
 package ru.bclib.complexmaterials;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MaterialColor;
 import ru.bclib.BCLib;
 import ru.bclib.api.tag.NamedBlockTags;
@@ -76,8 +75,8 @@ public class WoodenComplexMaterial extends ComplexMaterial {
 	}
 
 	@Override
-	protected FabricBlockSettings getBlockSettings() {
-		return FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)
+	protected BlockBehaviour.Properties getBlockSettings() {
+		return BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
 								  .materialColor(planksColor);
 	}
 
@@ -93,13 +92,13 @@ public class WoodenComplexMaterial extends ComplexMaterial {
 	}
 
 	@Override
-	protected void initDefault(FabricBlockSettings blockSettings, FabricItemSettings itemSettings) {
+	protected void initDefault(BlockBehaviour.Properties blockSettings, Item.Properties itemSettings) {
 		initBase(blockSettings, itemSettings);
 		initStorage(blockSettings, itemSettings);
 		initDecorations(blockSettings, itemSettings);
 	}
 
-	final protected void initBase(FabricBlockSettings blockSettings, FabricItemSettings itemSettings) {
+	final protected void initBase(BlockBehaviour.Properties blockSettings, Item.Properties itemSettings) {
 		TagLocation<Block> tagBlockLog = TagLocation.of(getBlockTag(TAG_LOGS));
 		TagLocation<Item> tagItemLog = TagLocation.of(getItemTag(TAG_LOGS));
 
@@ -167,7 +166,7 @@ public class WoodenComplexMaterial extends ComplexMaterial {
 			.setItemTags(NamedItemTags.SIGNS));
 	}
 
-	final protected void initStorage(FabricBlockSettings blockSettings, FabricItemSettings itemSettings) {
+	final protected void initStorage(BlockBehaviour.Properties blockSettings, Item.Properties itemSettings) {
 		addBlockEntry(new BlockEntry(BLOCK_CHEST, (complexMaterial, settings) -> new BaseChestBlock(getBlock(BLOCK_PLANKS)))
 			.setBlockTags(NamedCommonBlockTags.CHEST, NamedCommonBlockTags.WOODEN_CHEST)
 			.setItemTags(NamedCommonItemTags.CHEST, NamedCommonItemTags.WOODEN_CHEST));
@@ -177,7 +176,7 @@ public class WoodenComplexMaterial extends ComplexMaterial {
 			.setItemTags(NamedCommonItemTags.BARREL, NamedCommonItemTags.WOODEN_BARREL));
 	}
 
-	final protected void initDecorations(FabricBlockSettings blockSettings, FabricItemSettings itemSettings) {
+	final protected void initDecorations(BlockBehaviour.Properties blockSettings, Item.Properties itemSettings) {
 		addBlockEntry(new BlockEntry(BLOCK_CRAFTING_TABLE, (complexMaterial, settings) -> new BaseCraftingTableBlock(getBlock(BLOCK_PLANKS)))
 			.setBlockTags(NamedCommonBlockTags.WORKBENCHES)
 			.setItemTags(NamedCommonItemTags.WORKBENCHES));

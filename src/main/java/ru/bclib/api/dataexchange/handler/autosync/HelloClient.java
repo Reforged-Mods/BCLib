@@ -327,7 +327,7 @@ public class HelloClient extends DataHandler.FromServer {
 			final OfferedModInfo serverInfo = e.getValue();
 			
 			ModInfo nfo = ModUtil.getModInfo(e.getKey());
-			final boolean clientOnly = nfo!=null && nfo.metadata.getEnvironment()==ModEnvironment.CLIENT;
+			final boolean clientOnly = nfo!=null && nfo.metadata ==ModEnvironment.CLIENT;
 			final boolean requestMod = !clientOnly && !serverInfo.version.equals(localVersion) && serverInfo.size > 0 && serverInfo.canDownload;
 			
 			BCLib.LOGGER.info("	- " + e.getKey() + " (client=" + localVersion + ", server=" + serverInfo.version + ", size=" + PathUtil.humanReadableFileSize(serverInfo.size) + (requestMod ? ", requesting" : "") + (serverInfo.canDownload ? "" :", not offered") + (clientOnly?", client only":"")+ ")");

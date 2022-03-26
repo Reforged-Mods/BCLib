@@ -1,13 +1,12 @@
 package ru.bclib.mixin.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import net.fabricmc.fabric.impl.client.texture.FabricSprite;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraftforge.fml.ModList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +24,7 @@ public class TextureAtlasMixin {
 	
 	@Inject(method = "<init>*", at = @At("TAIL"))
 	private void bclib_onAtlasInit(ResourceLocation resourceLocation, CallbackInfo info) {
-		boolean hasOptifine = FabricLoader.getInstance().isModLoaded("optifabric");
+		boolean hasOptifine = ModList.get().isLoaded("optifine");
 		bclib_modifyAtlas = !hasOptifine && resourceLocation.toString().equals("minecraft:textures/atlas/blocks.png");
 		if (bclib_modifyAtlas) {
 			EmissiveTextureInfo.clear();

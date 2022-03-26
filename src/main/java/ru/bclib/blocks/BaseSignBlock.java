@@ -1,7 +1,5 @@
 package ru.bclib.blocks;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,6 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -25,6 +24,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -63,7 +63,7 @@ public class BaseSignBlock extends SignBlock implements BlockModelProvider, Cust
 	private final Block parent;
 	
 	public BaseSignBlock(Block source) {
-		super(FabricBlockSettings.copyOf(source).strength(1.0F, 1.0F).noCollission().noOcclusion(), WoodType.OAK);
+		super(BlockBehaviour.Properties.copy(source).strength(1.0F, 1.0F).noCollission().noOcclusion(), WoodType.OAK);
 		this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0).setValue(FLOOR, false).setValue(WATERLOGGED, false));
 		this.parent = source;
 	}
@@ -187,7 +187,7 @@ public class BaseSignBlock extends SignBlock implements BlockModelProvider, Cust
 	}
 	
 	@Override
-	public BlockItem getCustomItem(ResourceLocation blockID, FabricItemSettings settings) {
+	public BlockItem getCustomItem(ResourceLocation blockID, Item.Properties settings) {
 		return new BlockItem(this, settings.stacksTo(16));
 	}
 }
